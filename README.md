@@ -1,4 +1,4 @@
-# Caso1Diseno
+# Caso 1 - Diseño de Software
 DUA streamliner
 
 *Problema a resolver
