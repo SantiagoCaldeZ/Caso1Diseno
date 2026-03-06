@@ -37,6 +37,7 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 1. The user enters their login credentials (username, password)
 2. If the login attempt fails, a message is displayed indicating whether the username or password is invalid.
 3. If the login is successful, the process proceeds to the next page using the credentials entered by the user.
+![Login](wireframes/login.jpeg) 
 
 #### Configuring the Generator
 1. The user selects to configure the DUA generator.
@@ -44,6 +45,8 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 3. The user enters the desired path.
 4. A document to use as a template is requested.
 5. The user enters a DUA template document.
+![Configuration](wireframes/generatorconfig.jpeg) 
+
 
 #### Progress Monitoring
 1. The user initiates the DUA generation process after providing the source folder and template.
@@ -54,18 +57,21 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 6. The system indicates which information requires manual validation before generating the final document.
 7. The user waits for the process to finish or for the system to indicate that further review is needed.
 8. Once processing is complete, the system makes the result available for review and export.
+![monitoring](wireframes/monitoring.jpeg) 
 
 #### Obtaining Results
 1. the user decides to export the work done to a file
 2. the user decides witch type of file, as a pdf or a docx
 3. the system takes the information gathered and fills a docx 
 4. the system hands the document in the type of file that was specified by the user 
+![Resutls](wireframes/results.jpeg) 
 
 #### Logout 
 1. The user decides to log out.
 2. Confirmation is requested before logging out.
 3. If confirmation is denied, the user remains in the current window.
 4. If confirmation is given, the current session is closed and the user is redirected to the login page.
+![Logout](wireframes/logout.jpeg) 
 
 #### Wireframes
 
@@ -97,3 +103,4 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 - Avoid being verbose or filling this technical design documentation with narratives that do not add value to the design
 
 - Remember that the final reader of a design is the system development team and also AI agents that will create the base project, therefore avoid unnecessary explanations
+
