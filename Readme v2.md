@@ -46,9 +46,14 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 5. The user enters a DUA template document.
 
 #### Progress Monitoring
-1.
-2.
-3.
+1. The user initiates the DUA generation process after providing the source folder and template.
+2. The system begins reading documents, detecting formats, extracting text, performing OCR when necessary, and mapping relevant fields.
+3. The user monitors the current status of the process.
+4. The system reports the current execution stage, the documents detected, completed tasks, and pending tasks.
+5. The user reviews warnings related to missing data, ambiguous fields, or low-confidence extractions.
+6. The system indicates which information requires manual validation before generating the final document.
+7. The user waits for the process to finish or for the system to indicate that further review is needed.
+8. Once processing is complete, the system makes the result available for review and export.
 
 #### Obtaining Results
 1. the user decides to export the work done to a file
@@ -90,4 +95,5 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 - Everything must be done in English
 - Respect Markdown nomenclature, its levels and formats
 - Avoid being verbose or filling this technical design documentation with narratives that do not add value to the design
+
 - Remember that the final reader of a design is the system development team and also AI agents that will create the base project, therefore avoid unnecessary explanations
