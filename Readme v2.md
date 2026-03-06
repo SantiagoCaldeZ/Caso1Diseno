@@ -75,6 +75,16 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 
 #### Wireframes
 
+![Login](wireframes/login.jpeg)
+
+![Generator Config](wireframes/generatorconfig.jpeg)
+
+![Monitoring](wireframes/monitoring.jpeg)
+
+![Results](wireframes/results.jpeg)
+
+![Log Out](wireframes/logout.jpeg)
+
 #### UX test results
 
 
@@ -103,4 +113,5 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 - Avoid being verbose or filling this technical design documentation with narratives that do not add value to the design
 
 - Remember that the final reader of a design is the system development team and also AI agents that will create the base project, therefore avoid unnecessary explanations
+
 
