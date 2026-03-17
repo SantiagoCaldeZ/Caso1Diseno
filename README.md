@@ -105,8 +105,46 @@ Describe what happens on each screen in terms of actions (excluding visual compo
     -
 
 ## 1.4 Security:
-    // Technologies, techniques and classes with their respective location in the project structure responsible for authentication and authorization of permissions and sessions.
-    -authentication type:
+### authentication
+    - Azure Active Directory (Azure AD)
+    - OAuth 2.0/ OpenID Connect
+    - MFA (multifactor acthentication) by using Azure AD
+    - Role-Based Access Control (RBAC) defined in Azure AD
+    - Tokens Backend for Frontend
+### secured comunication 
+    - TLS 1.2+ : HTTPS cyphering 
+    - HSTS (HTTTP Strict Transport Security)
+    - CORS (Cross-Origin Resource Sharing)
+### validación 
+    - client validation: zod
+    - Azure Defender to scan uploaded files
+### Document management
+    - Azure Functions for OCR and data extraction
+    - Managed Identity for authentication without credentials
+    - https for document downloading
+    - Azure Blob Storage
+### Data protection 
+    - Azure Storage Encryption: server side encryption
+    - Azure Key Vault: encryption keys management
+    - Managed Identity: access to key vault
+    - Must comply with the Costa Rican Data Protection Law
+    - Must cumply with th GDPR (General Data Protection Regulation)
+### monitorization 
+    - Azure Application Insights to capture authentication and authorization events
+    - Azure Log Analytics to store logs
+    - Azure Monitor to get warnings in real time
+### safe developing 
+    - Dependency management: snyk, dependabot
+    - code analysis: SonarQube, Microsoft security code analysis, ESLint
+    - pre commit hooks: Husky, git-secrets
+    - dinamic tests:Playwright, Penetration tests
+### security structure
+    - virtual net
+    - net security groups
+    - private endpoints
+    - Managed Identity
+    - IP restrictions
+    - Azure Backup
 
 ## 1.5 Layered design:
     // design and explanation of the various layers of the application in the frontend.
