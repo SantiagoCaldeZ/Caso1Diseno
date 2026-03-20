@@ -101,50 +101,77 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 
 
 ## 1.3 Component design strategy:
-    // Defines the technique and principles of frontend component design, how component reuse is achieved, how to centralize styles, branding, internationalization, and responsiveness.
-    -
+### design principles
+- Reusability: Shared UI elements are abstracted into a common library.
+- Composition: Complex interfaces are built by composing smaller, focused components.
+- Accessibility: WCAG 2.1 AA compliance using semantic HTML and ARIA.
+- Declarative & Predictable: Clear separation of props, state, and side effects.  
+- Styling made by CSS modules  
+### design architecture
+- Atomic design 
+
+### state management
+- React functionalities for local state management
+- React context API for shared data 
+- React Hook Form with Zod for validation
+### internationalisation
+-Library: i18next with react-i18next
+- JSON files per language
+- automatic language detection 
+### responsiveness
+- mobile first approach
+### component documentation
+- All atoms, molecules, and organisms are documented in storybook
+- chromatic
+### code quality
+- ESLint & Prettier
+- husky pre-commit hooks
+### testing
+- Jest+React testing library for individual components
+- Integration Tests & Accessibility Tests
+
 
 ## 1.4 Security:
 ### authentication
-    - Azure Active Directory (Azure AD)
-    - OAuth 2.0/ OpenID Connect
-    - MFA (multifactor acthentication) by using Azure AD
-    - Role-Based Access Control (RBAC) defined in Azure AD
-    - Tokens Backend for Frontend
+- Azure Active Directory (Azure AD)
+- OAuth 2.0/ OpenID Connect
+- MFA (multifactor acthentication) by using Azure AD
+- Role-Based Access Control (RBAC) defined in Azure AD
+- Tokens Backend for Frontend
 ### secured comunication 
-    - TLS 1.2+ : HTTPS cyphering 
-    - HSTS (HTTTP Strict Transport Security)
-    - CORS (Cross-Origin Resource Sharing)
+- TLS 1.2+ : HTTPS cyphering 
+- HSTS (HTTTP Strict Transport Security)
+- CORS (Cross-Origin Resource Sharing)
 ### validación 
-    - client validation: zod
-    - Azure Defender to scan uploaded files
+- client validation: zod
+- Azure Defender to scan uploaded files
 ### Document management
-    - Azure Functions for OCR and data extraction
-    - Managed Identity for authentication without credentials
-    - https for document downloading
-    - Azure Blob Storage
+- Azure Functions for OCR and data extraction
+- Managed Identity for authentication without credentials
+- https for document downloading
+- Azure Blob Storage
 ### Data protection 
-    - Azure Storage Encryption: server side encryption
-    - Azure Key Vault: encryption keys management
-    - Managed Identity: access to key vault
-    - Must comply with the Costa Rican Data Protection Law
-    - Must cumply with th GDPR (General Data Protection Regulation)
+- Azure Storage Encryption: server side encryption
+- Azure Key Vault: encryption keys management
+- Managed Identity: access to key vault
+- Must comply with the Costa Rican Data Protection Law
+- Must cumply with th GDPR (General Data Protection Regulation)
 ### monitorization 
-    - Azure Application Insights to capture authentication and authorization events
-    - Azure Log Analytics to store logs
-    - Azure Monitor to get warnings in real time
+- Azure Application Insights to capture authentication and authorization events
+- Azure Log Analytics to store logs
+- Azure Monitor to get warnings in real time
 ### safe developing 
-    - Dependency management: snyk, dependabot
-    - code analysis: SonarQube, Microsoft security code analysis, ESLint
-    - pre commit hooks: Husky, git-secrets
-    - dinamic tests:Playwright, Penetration tests
+- Dependency management: snyk, dependabot
+- code analysis: SonarQube, Microsoft security code analysis, ESLint
+- pre commit hooks: Husky, git-secrets
+- dinamic tests:Playwright, Penetration tests
 ### security structure
-    - virtual net
-    - net security groups
-    - private endpoints
-    - Managed Identity
-    - IP restrictions
-    - Azure Backup
+- virtual net
+- net security groups
+- private endpoints
+- Managed Identity
+- IP restrictions
+- Azure Backup
 
 ## 1.5 Layered design:
     // design and explanation of the various layers of the application in the frontend.
