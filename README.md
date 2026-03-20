@@ -108,9 +108,7 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 - Declarative & Predictable: Clear separation of props, state, and side effects.  
 - Styling made by CSS modules  
 ### design architecture
-- Atomic design
-  
-![DesignArchitecture](wireframes/DesignArch.png)
+- Atomic design: ![DesignArchitecture](wireframes/DesignArch.png)
 ### state management
 - React functionalities for local state management
 - React context API for shared data 
