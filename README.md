@@ -246,11 +246,4 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 
 ## 1.7 a folder in /src that contains the project scaffold, which is generated from all the specifications in points 1.1 to 1.6.
 
-# Other aspects:
-
-- Everything must be done in English
-- Respect Markdown nomenclature, its levels and formats
-- Avoid being verbose or filling this technical design documentation with narratives that do not add value to the design
-
-- Remember that the final reader of a design is the system development team and also AI agents that will create the base project, therefore avoid unnecessary explanations
-
+![FolderSRC](wireframes/folder.png)
