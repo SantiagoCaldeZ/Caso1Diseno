@@ -99,6 +99,12 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 
 #### UX test results
 
+#### Participant 1
+- Screen understanding: The participant understood the screen overall, but did not fully read all instructions during the first pass.
+- Hesitation point: The main hesitation occurred at the beginning of the process.
+- Time on task: Approximately 5 to 10 minutes.
+- Task completion: Yes.
+- User comment: The participant described the flow as interesting and understood that the system analyzes documents and later allows exporting the result.
 
 ## 1.3 Component design strategy:
 
