@@ -101,84 +101,148 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 
 
 ## 1.3 Component design strategy:
-### design principles
-- Reusability: Shared UI elements are abstracted into a common library.
-- Composition: Complex interfaces are built by composing smaller, focused components.
-- Accessibility: WCAG 2.1 AA compliance using semantic HTML and ARIA.
-- Declarative & Predictable: Clear separation of props, state, and side effects.  
-- Styling made by CSS modules  
-### design architecture
-- Atomic design: ![DesignArchitecture](wireframes/DesignArch.png)
-### state management
-- React functionalities for local state management
-- React context API for shared data 
-- React Hook Form with Zod for validation
-### internationalisation
--Library: i18next with react-i18next
-- JSON files per language
-- automatic language detection 
-### responsiveness
-- mobile first approach
-### component documentation
-- All atoms, molecules, and organisms are documented in storybook
-- chromatic
-### code quality
-- ESLint & Prettier
-- husky pre-commit hooks
-### testing
-- Jest+React testing library for individual components
-- Integration Tests & Accessibility Tests
 
+### Design principles
+- Shared reusable components.
+- Clear component responsibility.
+- Consistent UI behavior.
+- Basic accessibility practices.
 
-## 1.4 Security:
-### authentication
+### Component architecture
+- Atomic Design.
+- Structure: atoms, molecules, organisms, templates, pages.
+- Shared components under `/src/components`.
+- Feature screens reuse shared components first.
+
+- Atomic design: 
+![DesignArchitecture](wireframes/DesignArch.png)
+
+### Styling and branding
+- CSS Modules.
+- Shared design tokens for color, typography, spacing, radius, and elevation.
+- Branding enforced through reusable primitives.
+
+### Internationalization
+- All visible text is externalized.
+- `react-i18next` for multilingual support.
+- Translations organized by language and domain.
+
+### Responsiveness
+- Mobile-first approach.
+- Support for mobile, tablet, and desktop.
+- Flexible layouts and relative units.
+
+## 1.4 Security
+
+### Security model
+- Single web application
+- Single Sign-On (SSO) with Azure Active Directory
+- Azure Active Directory as identity provider and credential server
+
+### Authentication
 - Azure Active Directory (Azure AD)
-- OAuth 2.0/ OpenID Connect
-- MFA (multifactor acthentication) by using Azure AD
+- OAuth 2.0 / OpenID Connect
+- MFA (multifactor authentication) by using Azure AD
+- Backend-for-Frontend (BFF) token flow
+- Location: `/src/auth/AuthProvider.tsx`, `/src/auth/AuthService.ts`
+
+### Authorization
 - Role-Based Access Control (RBAC) defined in Azure AD
-- Tokens Backend for Frontend
-### secured comunication 
-- TLS 1.2+ : HTTPS cyphering 
-- HSTS (HTTTP Strict Transport Security)
+- Role and permission validation before protected routes and actions
+- Location: `/src/auth/PermissionGuard.tsx`, `/src/auth/authorization.ts`
+
+### Session, storage and cache
+- Session handled in the BFF layer
+- Secure HttpOnly cookies for session storage
+- No tokens stored in localStorage
+- No-store cache for sensitive views
+- Location: `/src/auth/session.ts`, `/src/api/httpClient.ts`
+
+### Secured communication
+- TLS 1.2+ : HTTPS encryption
+- HSTS (HTTP Strict Transport Security)
 - CORS (Cross-Origin Resource Sharing)
-### validación 
-- client validation: zod
+
+### Validation
+- Client validation: Zod
 - Azure Defender to scan uploaded files
+
 ### Document management
 - Azure Functions for OCR and data extraction
 - Managed Identity for authentication without credentials
-- https for document downloading
+- HTTPS for document downloading
 - Azure Blob Storage
-### Data protection 
+
+### Data protection
 - Azure Storage Encryption: server side encryption
 - Azure Key Vault: encryption keys management
 - Managed Identity: access to key vault
 - Must comply with the Costa Rican Data Protection Law
-- Must cumply with th GDPR (General Data Protection Regulation)
-### monitorization 
+- Must comply with GDPR (General Data Protection Regulation)
+
+### Monitorization
 - Azure Application Insights to capture authentication and authorization events
 - Azure Log Analytics to store logs
 - Azure Monitor to get warnings in real time
-### safe developing 
-- Dependency management: snyk, dependabot
-- code analysis: SonarQube, Microsoft security code analysis, ESLint
-- pre commit hooks: Husky, git-secrets
-- dinamic tests:Playwright, Penetration tests
-### security structure
-- virtual net
-- net security groups
-- private endpoints
+
+### Safe developing
+- Dependency management: Snyk, Dependabot
+- Code analysis: SonarQube, Microsoft Security Code Analysis, ESLint
+- Pre-commit hooks: Husky, git-secrets
+- Dynamic tests: Playwright, penetration tests
+
+### Security structure
+- Virtual net
+- Net security groups
+- Private endpoints
 - Managed Identity
 - IP restrictions
 - Azure Backup
 
-## 1.5 Layered design:
-    // design and explanation of the various layers of the application in the frontend.
-    -
+## 1.5 Layered design
 
-## 1.6 Design patterns: 
-    // Design of classes with their respective location in the project structure, where it is necessary to apply object-oriented design patterns, such as: security, UI refresh, receiving notifications, state storage, API calls, asynchronous operations, session invalidation, event-driven programming, object creation.
-    -
+### Layers
+- Authentication layer
+- Authorization layer
+- Components layer
+- Hooks layer
+- Business logic layer
+- State management layer
+- Data validation layer
+- API clients layer
+- Notification layer
+- Models layer
+- Settings layer
+- Utils layer
+- Observability layer
+- Testability layer
+
+### Execution flow
+- The frontend initializes the application.
+- Authentication validates the current session.
+- Authorization validates role and permissions.
+- Components render the requested screen.
+- Hooks trigger UI actions.
+- Business logic orchestrates frontend workflows.
+- State management updates session and UI state.
+- Data validation validates input and API responses.
+- API clients call backend and external services.
+- Notification layer receives asynchronous updates.
+- Observability records logs and events.
+
+### Detected gaps
+- Routing layer not yet defined.
+- Testability layer not yet represented in the diagram.
+- Observability layer not yet represented in the diagram.
+
+## 1.6 Design patterns
+
+- Strategy — `/src/auth/strategies` — token protection changes over time.
+- Observer — `/src/notifications` — notification reception and UI refresh.
+- Singleton — `/src/api/ApiGateway.ts`, `/src/config/AppSettings.ts`, `/src/state/store.ts` — single shared instances.
+- Facade — `/src/api/DuaApiFacade.ts` — reduces API client proliferation.
+- Factory Method — `/src/factories` — object creation for frontend domain models.
+- Adapter — `/src/adapters` — response and format normalization.
 
 ## 1.7 a folder in /src that contains the project scaffold, which is generated from all the specifications in points 1.1 to 1.6.
 
