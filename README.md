@@ -106,6 +106,20 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 - Task completion: Yes.
 - User comment: The participant described the flow as interesting and understood that the system analyzes documents and later allows exporting the result.
 
+#### Participant 2
+- Screen understanding: The participant understood the screen without problem, but feels there could be more guidance.
+- Hesitation point: The main hesitation occurred at the viewing of the document reading section.
+- Time on task: Approximately 5 to 10 minutes.
+- Task completion: Yes.
+- User comment: The participant understood the app analyzes documents and generates a resulting document.
+
+#### Participant 3
+- Screen understanding: The participant said he thinks its easy to understand the screen.
+- Hesitation point: The main hesitation occurred at the route selections.
+- Time on task: less than 4 minutes.
+- Task completion: Yes.
+- User comment: The user said "there should be an option to close the app or get back to the options menu."
+
 ## 1.3 Component design strategy:
 
 ### Design principles
