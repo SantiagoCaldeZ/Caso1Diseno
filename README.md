@@ -461,13 +461,13 @@ This deliverable includes:
 No component diagram is included in this deliverable.
 
 ### Context diagram
-![Context Diagram](./Diagramas/ContextDiagram.png)
+![Context Diagram](./diagramas/ContextDiagram.png)
 
 ### Container diagram
-![Container Diagram](./Diagramas/ContainerDiagram.png)
+![Container Diagram](./diagramas/ContainerDiagram.png)
 
 ### Code diagram
-![Code Diagram](./Diagramas/CodeDiagram.png)
+![Code Diagram](./diagramas/CodeDiagram.png)
 
 ## Design Considerations
 - System parameters and policies must be documented in source code
