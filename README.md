@@ -451,12 +451,23 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 6. The backend authorizes the request and returns a secure download response
 
 ## Architecture diagrams in layers
-- Follow the C4 standard to create the diagrams and explanations
-- Include:
-  - Context diagram
-  - Container diagram
-  - Code diagram
-- In this deliverable, no component diagram is included
+
+Follow the C4 standard to create the diagrams and explanations.  
+This deliverable includes:
+- Context diagram
+- Container diagram
+- Code diagram
+
+No component diagram is included in this deliverable.
+
+### Context diagram
+![Context Diagram](./Diagramas/ContextDiagram.png)
+
+### Container diagram
+![Container Diagram](./Diagramas/ContainerDiagram.png)
+
+### Code diagram
+![Code Diagram](./Diagramas/CodeDiagram.png)
 
 ## Design Considerations
 - System parameters and policies must be documented in source code
@@ -473,27 +484,32 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 - The backend structure must follow the chosen repository architecture
 - The README must provide direct links to the main folders and primary classes
 
-### Suggested structure
-- `/duabusiness/src/Api`
-- `/duabusiness/src/Application`
-- `/duabusiness/src/Domain`
-- `/duabusiness/src/Infrastructure`
-- `/duabusiness/src/Workers`
-- `/duabusiness/src/Contracts`
-- `/duabusiness/src/Observability`
-- `/duabusiness/tests/Unit`
-- `/duabusiness/tests/Integration`
+### Main folders
+- [Api](./duabusiness/src/Api)
+- [Application](./duabusiness/src/Application)
+- [Contracts](./duabusiness/src/Contracts)
+- [Domain](./duabusiness/src/Domain)
+- [Infrastructure](./duabusiness/src/Infrastructure)
+- [Observability](./duabusiness/src/Observability)
+- [Workers](./duabusiness/src/Workers)
+- [Unit tests](./duabusiness/tests/Unit)
+- [Integration tests](./duabusiness/tests/Integration)
 
-### Suggested primary classes
-- `/duabusiness/src/Api/Controllers/DuaJobsController.cs`
-- `/duabusiness/src/Api/Controllers/TemplatesController.cs`
-- `/duabusiness/src/Application/Jobs/CreateDuaJobService.cs`
-- `/duabusiness/src/Application/Jobs/GetJobStatusService.cs`
-- `/duabusiness/src/Application/Files/RegisterUploadedFileService.cs`
-- `/duabusiness/src/Application/Templates/SetTemplateService.cs`
-- `/duabusiness/src/Application/Results/GenerateResultDocumentService.cs`
-- `/duabusiness/src/Workers/Processing/ProcessDuaJobFunction.cs`
-- `/duabusiness/src/Workers/Processing/RunOcrFunction.cs`
-- `/duabusiness/src/Infrastructure/Messaging/JobQueuePublisher.cs`
-- `/duabusiness/src/Infrastructure/Storage/BlobStorageService.cs`
-- `/duabusiness/src/Infrastructure/Persistence/DuaDbContext.cs`
+### Primary classes
+- [DuaJobsController](./duabusiness/src/Api/Controllers/DuaJobsController.cs)
+- [TemplatesController](./duabusiness/src/Api/Controllers/TemplatesController.cs)
+- [ResultsController](./duabusiness/src/Api/Controllers/ResultsController.cs)
+- [CreateDuaJobService](./duabusiness/src/Application/Jobs/CreateDuaJobService.cs)
+- [GetJobStatusService](./duabusiness/src/Application/Jobs/GetJobStatusService.cs)
+- [RegisterUploadedFileService](./duabusiness/src/Application/Files/RegisterUploadedFileService.cs)
+- [SetTemplateService](./duabusiness/src/Application/Templates/SetTemplateService.cs)
+- [GenerateResultDocumentService](./duabusiness/src/Application/Results/GenerateResultDocumentService.cs)
+- [ProcessDuaJobFunction](./duabusiness/src/Workers/Processing/ProcessDuaJobFunction.cs)
+- [RunOcrFunction](./duabusiness/src/Workers/Processing/RunOcrFunction.cs)
+- [RunSemanticExtractionFunction](./duabusiness/src/Workers/Processing/RunSemanticExtractionFunction.cs)
+- [RunValidationFunction](./duabusiness/src/Workers/Processing/RunValidationFunction.cs)
+- [JobQueuePublisher](./duabusiness/src/Infrastructure/Messaging/JobQueuePublisher.cs)
+- [BlobStorageService](./duabusiness/src/Infrastructure/Storage/BlobStorageService.cs)
+- [DuaDbContext](./duabusiness/src/Infrastructure/Persistence/DuaDbContext.cs)
+- [WebPubSubNotifier](./duabusiness/src/Infrastructure/Notifications/WebPubSubNotifier.cs)
+- [KeyVaultConfigProvider](./duabusiness/src/Infrastructure/Configuration/KeyVaultConfigProvider.cs)
