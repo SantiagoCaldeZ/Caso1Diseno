@@ -281,3 +281,219 @@ Describe what happens on each screen in terms of actions (excluding visual compo
 ## 1.7 a folder in /src that contains the project scaffold, which is generated from all the specifications in points 1.1 to 1.6.
 
 ![FolderSRC](wireframes/folder.png)
+
+# Backend design
+
+## Technology stack
+- REST API over HTTPS
+- API standard with OpenAPI
+- Azure API Management + Azure App Service
+- Azure Functions for long-running processing
+- Azure Blob Storage for source files, templates, and generated outputs
+- Azure SQL Database for relational data and job metadata
+- Azure Service Bus for asynchronous processing
+- Azure Web PubSub for real-time monitoring updates
+- Azure Key Vault for secrets and certificates
+- API coding language: C#
+- Backend framework: ASP.NET Core
+- This is a monorepo solution, sharing the repository with the frontend, backend folder: `duabusiness`
+- Architecture style: modular monolith with background workers
+- Execution model:
+  - synchronous for authentication, template setup, job creation, status queries, and result download
+  - asynchronous for OCR, semantic extraction, validation, and DUA generation
+- No standalone load balancer is introduced in v1
+
+## Security
+- This section must stay aligned with the frontend security model
+- Authentication: Microsoft Entra ID
+- Authentication protocol: OAuth 2.0 / OpenID Connect
+- Authorization model: RBAC
+- The backend must enforce the same business roles defined in the frontend
+- Session validation must remain compatible with the frontend session model
+- HTTPS only
+- TLS 1.2 or higher
+- Database encryption at rest: Azure SQL TDE with AES-256
+- Secrets, certificates, and keys stored in Azure Key Vault
+- Uploaded files stored in private Blob containers
+- No public access to uploaded or generated files
+- General maximum payload size: 10 MB
+- File upload endpoints: up to 250 MB per file using streaming upload
+- Default rate limit: 60 requests per minute per authenticated user
+- Stricter throttling for login and job creation endpoints
+- Active production data retention: 90 days
+- Archived files retention: 365 days unless legal hold is required
+
+## Observability
+- This section must stay aligned with the frontend observability model
+- Platform: Azure Monitor, Application Insights, Log Analytics
+- Instrumentation: OpenTelemetry
+- Structured logs in JSON format
+- Correlation IDs required: `traceId`, `requestId`, `jobId`
+
+### Events to register
+- User authentication succeeded / failed
+- Job created
+- File uploaded
+- File validation failed
+- File stored
+- OCR started / completed / failed
+- Semantic extraction started / completed / failed
+- Mapping completed
+- Validation warning generated
+- Manual review required
+- Result generated
+- Result downloaded
+- Job canceled
+- Unhandled exception
+- Rate limit exceeded
+- Access denied
+
+### Dashboards
+- Operational dashboard
+- Security dashboard
+- Business processing dashboard
+
+## Infrastructure (devops)
+- Source control: Azure DevOps Repositories
+- CI/CD automation: Azure DevOps Pipelines
+- Environment coordination: Azure DevOps Environments
+- Infrastructure as Code: Bicep
+- Environments:
+  - `dev`
+  - `stage`
+  - `prod`
+- Deployment strategy:
+  - `dev`: automatic
+  - `stage`: automatic after integration validation
+  - `prod`: manual approval
+- Pipeline stages:
+  - build
+  - static analysis
+  - unit tests
+  - integration tests
+  - package
+  - infrastructure deployment
+  - application deployment
+  - smoke tests
+
+## Availability
+- Availability target for v1: 99.95% annual uptime
+- Maximum annual downtime budget: approximately 4 hours 23 minutes
+- Main reliability measures:
+  - managed Azure services with SLA
+  - queue-based decoupling for long-running jobs
+  - retry and backoff policies
+  - idempotent background processing
+  - dead-letter handling for failed messages
+  - storage redundancy
+- Single points of failure must be reviewed for:
+  - API gateway
+  - App Service
+  - SQL Database
+  - Blob Storage
+  - Service Bus
+  - Web PubSub
+- Any element that does not meet the target reliability must include an explicit recovery strategy
+
+## Scalability
+- Elements that grow when request volume increases:
+  - API Management capacity
+  - App Service instances
+  - Azure Functions concurrency
+  - Service Bus queue depth
+  - Blob Storage throughput
+  - SQL Database load
+  - Web PubSub concurrent connections
+- Scaling strategy:
+  - stateless API layer
+  - queue-based processing for heavy workloads
+  - asynchronous workers for OCR and extraction
+  - storage separated from compute
+  - monitoring traffic separated from main API traffic
+
+## Backend key workflows
+
+### Upload files to generate dua
+1. The frontend requests a new DUA generation job
+2. The backend creates a `jobId`
+3. The client uploads files using streaming transfer
+4. The backend validates file type, size, and metadata
+5. Files are stored in Azure Blob Storage
+6. File metadata is persisted in Azure SQL Database
+7. The backend publishes processing messages to Azure Service Bus
+8. Worker components process the job asynchronously
+9. Progress updates are published to the monitoring channel
+10. The backend updates the job state until completion, review required, or failure
+
+### Setup dua template
+1. The user selects or uploads a DUA template
+2. The backend validates template type and version
+3. The template is stored in protected Blob Storage
+4. Template metadata is stored in the database
+5. The template is linked to the current job or reusable configuration
+
+### Process documents
+1. A worker loads the job context and related files
+2. The worker selects the correct parser for each file type
+3. OCR is executed when required
+4. Extracted data is normalized into a common internal model
+5. Semantic extraction identifies DUA-relevant fields
+6. Mapping rules assign values to DUA target fields
+7. Validation rules detect inconsistencies and low-confidence values
+8. The backend marks the job as completed, failed, or review required
+
+### Generate and deliver result
+1. The backend builds the final DUA output document
+2. The generated file is stored in Blob Storage
+3. The backend stores the output reference and final job state
+4. The frontend receives a completion update
+5. The user requests the result file
+6. The backend authorizes the request and returns a secure download response
+
+## Architecture diagrams in layers
+- Follow the C4 standard to create the diagrams and explanations
+- Include:
+  - Context diagram
+  - Container diagram
+  - Code diagram
+- In this deliverable, no component diagram is included
+
+## Design Considerations
+- System parameters and policies must be documented in source code
+- Resource allocation decisions must be explicit
+- Core business algorithms and their parameters must be documented
+- AI-assisted extraction components must remain configurable
+- Internal integrations must be abstracted behind interfaces
+- Sensitive data must never be written to logs
+- Manual review must remain part of the business flow for low-confidence results
+
+## Source Code
+- The backend skeleton must be generated from this technical description
+- The generated scaffold must not include final business logic
+- The backend structure must follow the chosen repository architecture
+- The README must provide direct links to the main folders and primary classes
+
+### Suggested structure
+- `/duabusiness/src/Api`
+- `/duabusiness/src/Application`
+- `/duabusiness/src/Domain`
+- `/duabusiness/src/Infrastructure`
+- `/duabusiness/src/Workers`
+- `/duabusiness/src/Contracts`
+- `/duabusiness/src/Observability`
+- `/duabusiness/tests/Unit`
+- `/duabusiness/tests/Integration`
+
+### Suggested primary classes
+- `/duabusiness/src/Api/Controllers/DuaJobsController.cs`
+- `/duabusiness/src/Api/Controllers/TemplatesController.cs`
+- `/duabusiness/src/Application/Jobs/CreateDuaJobService.cs`
+- `/duabusiness/src/Application/Jobs/GetJobStatusService.cs`
+- `/duabusiness/src/Application/Files/RegisterUploadedFileService.cs`
+- `/duabusiness/src/Application/Templates/SetTemplateService.cs`
+- `/duabusiness/src/Application/Results/GenerateResultDocumentService.cs`
+- `/duabusiness/src/Workers/Processing/ProcessDuaJobFunction.cs`
+- `/duabusiness/src/Workers/Processing/RunOcrFunction.cs`
+- `/duabusiness/src/Infrastructure/Messaging/JobQueuePublisher.cs`
+- `/duabusiness/src/Infrastructure/Storage/BlobStorageService.cs`
+- `/duabusiness/src/Infrastructure/Persistence/DuaDbContext.cs`
